@@ -1,0 +1,22 @@
+@import "../variables/variables";
+
+.welcome{
+  h1{
+    color: $font-color;
+    font-size: 3em;
+    font-weight: 700;
+  }
+  @media (max-width : $breakpoint-mobile) {
+    h1 {
+      font-size: 2em;
+    }
+  }
+  img{
+    width: 100%;
+    height: auto;
+  }
+  .credits{
+    font-weight: 500;
+    position: relative;
+  }
+}
