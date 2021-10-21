@@ -1,3 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
 @import "variables/variables";
+@import "variables/mixins";
 @import "partials/welcome";
+@import "variables/layout";
+@import "partials/no-data";
+@import "partials/add-data";
+@import "partials/form";
