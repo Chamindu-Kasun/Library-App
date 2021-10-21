@@ -1,10 +1,10 @@
 import React  from "react";
 import { Form} from "react-bootstrap";
 
-const AuthorNameInputField = () => {
+const PriceInputField = () => {
     return(
         <Form.Group className={"ms-5"}>
-            <Form.Label className={"form-label mb-0 mt-5"}>Name of Author</Form.Label>
+            <Form.Label className={"form-label mb-0 mt-3"}>Price</Form.Label>
             <Form.Control className={'form-input'}/>
             <Form.Control.Feedback></Form.Control.Feedback>
         </Form.Group>
@@ -12,4 +12,4 @@ const AuthorNameInputField = () => {
 }
 
 
-export default AuthorNameInputField
+export default PriceInputField
