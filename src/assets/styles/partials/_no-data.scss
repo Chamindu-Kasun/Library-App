@@ -1,0 +1,8 @@
+@import "../variables/variables";
+
+.no-data {
+  font-style: italic;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: $no-item-text-color;
+}

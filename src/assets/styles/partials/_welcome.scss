@@ -1,4 +1,5 @@
 @import "../variables/variables";
+@import "../variables/mixins";
 
 .welcome{
   h1{
@@ -6,7 +7,7 @@
     font-size: 3em;
     font-weight: 700;
   }
-  @media (max-width : $breakpoint-mobile) {
+  @include respond(mobile) {
     h1 {
       font-size: 2em;
     }

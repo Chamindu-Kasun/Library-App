@@ -1,0 +1,11 @@
+@import "../variables/variables";
+
+.add-data {
+  box-sizing: border-box;
+  cursor: pointer;
+
+  span {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+}
