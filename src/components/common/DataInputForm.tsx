@@ -4,6 +4,8 @@ import AuthorNameInputField from "../authors/AuthorNameInputField";
 import BookNameInputField from "../books/BookNameInputField";
 import FormSubmitButton from "./FormSubmitButton";
 import { FiXCircle } from "react-icons/fi";
+import PriceInputField from "../books/PriceInputField";
+import AuthorSelectionField from "../books/AuthorSelectionField";
 
 type DataInputFormProps = {
     formType : string
@@ -21,12 +23,8 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
      }
      return(
          <React.Fragment>
-           <Form.Group>
-             <AuthorNameInputField/>
-           </Form.Group>
-           <Form.Group>
-            <AuthorNameInputField/>
-           </Form.Group>
+             <PriceInputField/>
+            <AuthorSelectionField/>
          </React.Fragment>
      );
     }
@@ -35,8 +33,8 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
         <Row className="form mt-5 px-0">
             <Col xs={12} lg={8} md={12}>
                 <Row>
-                    <Col><span className="form-title">{formType} {label}</span></Col>
-                    <Col>
+                    <Col lg={9} xs={8}><span className="form-title">{formType} {label}</span></Col>
+                    <Col lg={3} xs={4}>
                         <FiXCircle
                         size={28}
                         className="close-button pt-1 float-end"

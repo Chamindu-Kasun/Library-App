@@ -8,11 +8,11 @@ import Footer from "./components/Footer";
 const App: React.FC = () => {
   return(
       <Container fluid={true}>
-          <Row>
-             <Col xs={12}><Welcome/></Col>
-              <Col xs={12}><LibraryBody/></Col>
-              <Col xs={12}><Footer/></Col>
+          <Row className={"mb-5"}>
+             <Col xs={12} className={"mb-5"}><Welcome/></Col>
+             <Col xs={12} className={"mb-5"}><LibraryBody/></Col>
           </Row>
+          <Row><Footer/></Row>
       </Container>
   )
 };
