@@ -6,6 +6,7 @@ import {IBook} from "../common/Types";
 import NoDataToShow from "../common/NoDataToShow";
 import AddNewData from "../common/AddNewData";
 import DataInputForm from "../common/DataInputForm";
+import ShowEachItem from "../common/ShowEachItem";
 
 type BooksProps = {
     authors: IAuthor[] | null;
@@ -18,9 +19,12 @@ const Books: React.FC<BooksProps> = (props) => {
 
     //Show Books
     const ShowBooks = () => {
-        if(!books)return<NoDataToShow message={"books"}/>
-        // <ShowData/>
-        //   return<h1>AuthorsABC</h1>
+        if(!books || books.length === 0)return<NoDataToShow message={"books"}/>
+        if(books){
+            return(
+                <ShowEachItem label={"Books"} itemsToShow={books}/>
+            );
+        }
     }
 
     //Handle Add New Book Form
@@ -45,11 +49,11 @@ const Books: React.FC<BooksProps> = (props) => {
         />
     }
 
-    //Handle create author submit
-    const handleOnCreateBookSubmit = (newAuthor: IAuthor) => {
-        // const newAuthorList: IAuthor[] = authors ? authors.slice() : [];
-        // newAuthorList.push(newAuthor);
-        // setAuthors(newAuthorList);
+    //Handle create Book submit
+    const handleOnCreateBookSubmit = (newAuthor: IAuthor, newBook:IBook) => {
+        const newBookList: IBook[] = books ? books.slice() : [];
+        newBookList.push(newBook);
+        setBooks(newBookList);
     }
 
     return(

@@ -19,11 +19,12 @@ type DataInputFormProps = {
 const DataInputForm: React.FC<DataInputFormProps> = (props) => {
     const {formType, label, onCloseClick, onCreateSubmit, authors} = props;
     //Author Form State
-    const [newAuthorName, setNewAuthorName] = useState<string | null>("");
+    const [authorName, setAuthorName] = useState<string>("");
     //Book Form State
     const [bookTitle, setBookTitle] = useState<string>("");
     const [bookPrice, setBookPrice] = useState<string>("");
     const [bookAuthor, setBookAuthor] = useState<IAuthor | null>(null);
+    //Validation
 
     //Set input fields
     const ShowBookFormInputFields = (label: string) => {
@@ -32,8 +33,14 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
      }
      return(
          <React.Fragment>
-             <PriceInputField/>
-            <AuthorSelectionField authors={authors}/>
+             <PriceInputField
+                 onAddBookPriceFieldChange={handleAddBookPriceFieldChange}
+                 currentBookPriceValue={bookPrice}
+             />
+             <AuthorSelectionField
+                  onSelectBookAuthorChange={handleSelectAuthorFieldChange}
+                  authors={authors}
+             />
          </React.Fragment>
      );
     }
@@ -43,24 +50,52 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
     const handleAddNewAuthorFieldChange = (newAuthorName: string) => {
         if(newAuthorName === "")
           {
-              setNewAuthorName("");
+              setAuthorName("");
               return;
           }
-        setNewAuthorName(newAuthorName);
+        setAuthorName(newAuthorName);
+    }
+    //(2) Book Form
+    const handleAddBookTitleFieldChange = (newBookTitle:string) => {
+        if(newBookTitle === "")
+        {
+            setBookTitle("");
+            return;
+        }
+        setBookTitle(newBookTitle);
+    }
+
+    const handleAddBookPriceFieldChange = (newBookPrice: string) => {
+        if(newBookPrice === "")
+        {
+            setBookPrice("");
+            return;
+        }
+        setBookPrice(newBookPrice);
+    }
+
+    const handleSelectAuthorFieldChange = (option: any) => {
+        console.log("Here Works")
+        console.log("Option", option)
+        if(!option){
+            setBookAuthor(null);
+            return;
+        }
+        setBookAuthor(option.value)
     }
 
     //Form Submit
     const handleFormSubmit = (e: FormEvent) => {
         e.preventDefault();
-        //Base on label call 2 submit events
+        //Base on the label -> call two submit events
         if(label === "Author"){
-            if(newAuthorName === "" || newAuthorName === null){
-                setNewAuthorName("");
+            if(authorName === "" || authorName === null){
+                setAuthorName("");
                 return;
             }else{
                 //Create Author
                 const newAuthor:IAuthor = {
-                    name: newAuthorName
+                    name: authorName
                 }
                 const newBook: IBook = {
                     name: bookTitle,
@@ -68,11 +103,34 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                     author: bookAuthor,
                 };
                 onCreateSubmit(newAuthor, newBook)
-                setNewAuthorName("");
+                setAuthorName("");
             }
         }
         if(label === "Book"){
-            console.log("Works")
+            console.log(bookTitle)
+            console.log(bookPrice)
+            console.log(bookAuthor)
+            if (
+                bookTitle === "" ||
+                bookPrice === "" ||
+                bookTitle === null ||
+                bookPrice === null ||
+                bookAuthor === null
+            ){
+                 return;;
+            }else{
+                //Create Book
+                console.log("Here Works")
+                const newAuthor:IAuthor = {
+                    name: authorName
+                }
+                const newBook: IBook = {
+                    name: bookTitle,
+                    price: bookPrice,
+                    author: bookAuthor,
+                };
+                onCreateSubmit(newAuthor, newBook)
+            }
         }
     }
 
@@ -95,10 +153,14 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                     {label === "Author" ?
                         <AuthorNameInputField
                             onAddNewAuthorFieldChange={handleAddNewAuthorFieldChange}
-                            currentAuthorValue={""}
+                            currentAuthorValue={authorName}
                         />
                         :
-                        <BookNameInputField/>}
+                        <BookNameInputField
+                            onAddBookTitleFieldChange={handleAddBookTitleFieldChange}
+                            currentBookTitleValue={bookTitle}
+                        />
+                    }
                     {ShowBookFormInputFields(label)}
                     <FormSubmitButton editClicked={false}/>
                 </Form>
