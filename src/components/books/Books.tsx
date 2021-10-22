@@ -7,8 +7,12 @@ import NoDataToShow from "../common/NoDataToShow";
 import AddNewData from "../common/AddNewData";
 import DataInputForm from "../common/DataInputForm";
 
-const Books: React.FC = () => {
-    const [authors, setAuthors] = useState <IAuthor[] | null>(null);
+type BooksProps = {
+    authors: IAuthor[] | null;
+};
+
+const Books: React.FC<BooksProps> = (props) => {
+    const {authors} = props;
     const [books, setBooks] = useState<IBook[] | null>(null)
     const [showInputForm, setShowInputForm] = useState<boolean>(false)
 
@@ -36,8 +40,16 @@ const Books: React.FC = () => {
             formType = {"Create"}
             label = {"Book"}
             onCloseClick = {handleAddBookFormClose}
-            // onSubmit={}
+            onCreateSubmit = {handleOnCreateBookSubmit}
+            authors={authors}
         />
+    }
+
+    //Handle create author submit
+    const handleOnCreateBookSubmit = (newAuthor: IAuthor) => {
+        // const newAuthorList: IAuthor[] = authors ? authors.slice() : [];
+        // newAuthorList.push(newAuthor);
+        // setAuthors(newAuthorList);
     }
 
     return(
