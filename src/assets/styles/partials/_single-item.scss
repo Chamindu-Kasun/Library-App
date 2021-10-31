@@ -1,0 +1,31 @@
+@import "../variables/variables";
+@import "../variables/mixins";
+
+.item {
+  font-size: 1.4em;
+  font-weight: 500;
+  text-transform: capitalize;
+
+  .icons {
+    cursor: pointer;
+    opacity: 0;
+  }
+}
+
+.item:hover {
+  background-color: $author-hover-back-color;
+
+  .icons {
+    opacity: 1;
+  }
+}
+
+@include respond(tablet) {
+  .author {
+    background-color: transparent;
+
+    .icons {
+      opacity: 1;
+    }
+  }
+}

@@ -12,3 +12,7 @@ export interface selectorOptionType {
     label: string
     value: IAuthor
 }
+export interface IPopupMessage {
+    message: string;
+    className: string;
+}

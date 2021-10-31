@@ -1,29 +1,32 @@
-import React, {useState, useEffect, ChangeEvent}  from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import { Form} from "react-bootstrap";
 
 type AuthorNameInputFieldProps = {
     onAddNewAuthorFieldChange: (newAuthorName: string) => void;
     currentAuthorValue: string
+    setIsFormValidate : React.Dispatch<React.SetStateAction<boolean>>
 }
 const AuthorNameInputField: React.FC<AuthorNameInputFieldProps> = (props) => {
+    const {currentAuthorValue} = props;
     const [authorName, setAuthorName] = useState<string>("");
 
     //Set Current Author Name
     useEffect(() => {
-        if(props.currentAuthorValue){setAuthorName(props.currentAuthorValue)}
+        if(currentAuthorValue){setAuthorName(currentAuthorValue)}
     }, [props.currentAuthorValue])
-
     //Handle Value Change
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         if(!e.target.value) {
+            props.setIsFormValidate(true)
             setAuthorName("")
+            props.onAddNewAuthorFieldChange("")
             return ;
         }
         if(e.target.value){
             setAuthorName(e.target.value)
             props.onAddNewAuthorFieldChange(e.target.value);
+            return;
         }
-        return;
     };
 
     return(
@@ -32,10 +35,14 @@ const AuthorNameInputField: React.FC<AuthorNameInputFieldProps> = (props) => {
             <Form.Control
                 className={'form-input'}
                 type="text"
+                required
+                size="sm"
                 onChange={handleOnInputChange}
                 value={authorName}
             />
-            <Form.Control.Feedback></Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>
+                <p className="text-danger fw-bold">Please Enter Author Name</p>
+            </Form.Control.Feedback>
         </Form.Group>
     )
 }

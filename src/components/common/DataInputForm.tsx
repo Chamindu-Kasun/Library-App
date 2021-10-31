@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useState, useEffect} from "react";
 import {Row,Col,Form} from "react-bootstrap"
 import AuthorNameInputField from "../authors/AuthorNameInputField";
 import BookNameInputField from "../books/BookNameInputField";
@@ -14,10 +14,14 @@ type DataInputFormProps = {
     onCloseClick : () => void
     onCreateSubmit: (newAuthor: IAuthor, newBook: IBook) => void,
     authors: IAuthor[] | null;
+    authorToEdit : string
+    bookToEdit: IBook | null
+    editClicked : boolean
 }
 
 const DataInputForm: React.FC<DataInputFormProps> = (props) => {
-    const {formType, label, onCloseClick, onCreateSubmit, authors} = props;
+    const {formType, label, onCloseClick, onCreateSubmit, authors, authorToEdit,
+           bookToEdit, editClicked} = props;
     //Author Form State
     const [authorName, setAuthorName] = useState<string>("");
     //Book Form State
@@ -25,6 +29,20 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
     const [bookPrice, setBookPrice] = useState<string>("");
     const [bookAuthor, setBookAuthor] = useState<IAuthor | null>(null);
     //Validation
+    const [isFormValidate, setIsFormValidate] = useState<boolean>(false);
+    const [isSelectorValidate, setIsSelectorValidate] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!bookToEdit) {
+            return;
+        }
+
+        if (bookToEdit){
+            setBookTitle(bookToEdit.name)
+            setBookPrice(bookToEdit.price)
+            setBookAuthor(bookToEdit.author)
+        }
+    }, [bookToEdit]);
 
     //Set input fields
     const ShowBookFormInputFields = (label: string) => {
@@ -36,10 +54,14 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
              <PriceInputField
                  onAddBookPriceFieldChange={handleAddBookPriceFieldChange}
                  currentBookPriceValue={bookPrice}
+                 setIsFormValidate={setIsFormValidate}
              />
              <AuthorSelectionField
                   onSelectBookAuthorChange={handleSelectAuthorFieldChange}
                   authors={authors}
+                  currentSelectedAuthor = {bookAuthor}
+                  isValid={isSelectorValidate}
+                  setIsSelectorValidate={setIsSelectorValidate}
              />
          </React.Fragment>
      );
@@ -48,37 +70,32 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
     //Handle Input Value Change
     //(1) Author Form
     const handleAddNewAuthorFieldChange = (newAuthorName: string) => {
-        if(newAuthorName === "")
-          {
-              setAuthorName("");
-              return;
-          }
+        if(newAuthorName === "") {
+            setAuthorName("")
+            return;
+        }
         setAuthorName(newAuthorName);
     }
     //(2) Book Form
     const handleAddBookTitleFieldChange = (newBookTitle:string) => {
-        if(newBookTitle === "")
-        {
-            setBookTitle("");
+        if(newBookTitle === "") {
+            setBookTitle("")
             return;
         }
         setBookTitle(newBookTitle);
     }
 
     const handleAddBookPriceFieldChange = (newBookPrice: string) => {
-        if(newBookPrice === "")
-        {
-            setBookPrice("");
+        if(newBookPrice === "") {
+            setBookPrice("")
             return;
         }
         setBookPrice(newBookPrice);
     }
 
     const handleSelectAuthorFieldChange = (option: any) => {
-        console.log("Here Works")
-        console.log("Option", option)
-        if(!option){
-            setBookAuthor(null);
+        if(!option) {
+            setBookAuthor(null)
             return;
         }
         setBookAuthor(option.value)
@@ -90,7 +107,6 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
         //Base on the label -> call two submit events
         if(label === "Author"){
             if(authorName === "" || authorName === null){
-                setAuthorName("");
                 return;
             }else{
                 //Create Author
@@ -104,12 +120,10 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                 };
                 onCreateSubmit(newAuthor, newBook)
                 setAuthorName("");
+                return;
             }
         }
         if(label === "Book"){
-            console.log(bookTitle)
-            console.log(bookPrice)
-            console.log(bookAuthor)
             if (
                 bookTitle === "" ||
                 bookPrice === "" ||
@@ -117,10 +131,11 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                 bookPrice === null ||
                 bookAuthor === null
             ){
-                 return;;
+                 setIsFormValidate(true);
+                 if(bookAuthor===null) setIsSelectorValidate(true);
+                 return;
             }else{
                 //Create Book
-                console.log("Here Works")
                 const newAuthor:IAuthor = {
                     name: authorName
                 }
@@ -130,6 +145,11 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                     author: bookAuthor,
                 };
                 onCreateSubmit(newAuthor, newBook)
+                setIsSelectorValidate( false)
+                setBookTitle("")
+                setBookPrice("")
+                setBookAuthor(null)
+                return;
             }
         }
     }
@@ -149,20 +169,24 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
                 </Row>
             </Col>
             <Col xs={12} lg={8} md={12}>
-                <Form onSubmit={handleFormSubmit}>
+                <Form onSubmit={handleFormSubmit} validated={isFormValidate} noValidate>
                     {label === "Author" ?
+                        <React.Fragment>
                         <AuthorNameInputField
                             onAddNewAuthorFieldChange={handleAddNewAuthorFieldChange}
-                            currentAuthorValue={authorName}
+                            currentAuthorValue={authorToEdit}
+                            setIsFormValidate={setIsFormValidate}
                         />
+                        </React.Fragment>
                         :
                         <BookNameInputField
                             onAddBookTitleFieldChange={handleAddBookTitleFieldChange}
                             currentBookTitleValue={bookTitle}
+                            setIsFormValidate={setIsFormValidate}
                         />
                     }
                     {ShowBookFormInputFields(label)}
-                    <FormSubmitButton editClicked={false}/>
+                    <FormSubmitButton editClicked={editClicked}/>
                 </Form>
             </Col>
         </Row>

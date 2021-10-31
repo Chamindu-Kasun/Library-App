@@ -6,12 +6,18 @@ import {IAuthor, IBook, selectorOptionType} from "../common/Types";
 type AuthorSectionFieldProps = {
     onSelectBookAuthorChange : (option: any) => void;
     authors : IAuthor[] | null;
+    currentSelectedAuthor: IAuthor | null;
+    isValid: boolean;
+    setIsSelectorValidate : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
-    const {authors} = props;
+    const {authors, currentSelectedAuthor} = props;
     const [bookAuthor, setBookAuthor] = useState<IAuthor | null>(null);
     const [selectOptions , setSelectOptions] = useState<selectorOptionType[] | null>(null)
+    //Border
+    const [selectorBorderColor, setSelectorBorderColor] =
+        useState<string>("#989898");
 
     //Set Select Options (authors => options)
     useEffect(() => {
@@ -26,26 +32,33 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
         setSelectOptions(options)
     }, [authors])
 
+    useEffect(() => {
+        setBookAuthor(currentSelectedAuthor)
+    }, [currentSelectedAuthor])
+
     //Custom styles
     const customStyles = {
         control: (provided: any) => ({
             ...provided,
-            border: `2px solid #989898`,
+            border: `2px solid ${selectorBorderColor}`,
             borderRadius: 0,
         }),
     }
 
     //Handle Option Selection
     const handleOnAuthorChange = (option: any) => {
-        console.log(option)
         if(!option) {
             setBookAuthor(null)
+            props.onSelectBookAuthorChange(null);
+            setSelectorBorderColor("#f80046");
+            props.setIsSelectorValidate(true);
             return ;
         }
-        if(option){
-            setBookAuthor(option.value)
-            props.onSelectBookAuthorChange(option);
-        }
+             setBookAuthor(option)
+             props.onSelectBookAuthorChange(option);
+             setSelectorBorderColor("#198754");
+             props.setIsSelectorValidate(false);
+            return;
     };
 
     return(
@@ -57,10 +70,15 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
                 isSearchable
                 isClearable
                 options={!selectOptions ? [] : selectOptions}
+                value={selectOptions?.filter(option => option.label === bookAuthor?.name)}
                 styles={customStyles}
                 onChange={handleOnAuthorChange}
             />
-            <Form.Control.Feedback></Form.Control.Feedback>
+            {props.isValid &&
+            <small className="text-danger fw-bold">
+                Please Select An Author
+            </small>
+            }
         </Form.Group>
     )
 }
