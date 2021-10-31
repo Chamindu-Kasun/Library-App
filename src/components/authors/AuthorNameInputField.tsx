@@ -14,6 +14,7 @@ const AuthorNameInputField: React.FC<AuthorNameInputFieldProps> = (props) => {
     useEffect(() => {
         if(currentAuthorValue){setAuthorName(currentAuthorValue)}
     }, [props.currentAuthorValue])
+
     //Handle Value Change
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         if(!e.target.value) {
@@ -46,6 +47,4 @@ const AuthorNameInputField: React.FC<AuthorNameInputFieldProps> = (props) => {
         </Form.Group>
     )
 }
-
-
 export default AuthorNameInputField

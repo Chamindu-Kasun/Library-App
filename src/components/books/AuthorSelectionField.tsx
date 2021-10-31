@@ -41,7 +41,7 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
         control: (provided: any) => ({
             ...provided,
             border: `2px solid ${selectorBorderColor}`,
-            borderRadius: 0,
+            borderRadius: "0px",
         }),
     }
 
@@ -50,7 +50,7 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
         if(!option) {
             setBookAuthor(null)
             props.onSelectBookAuthorChange(null);
-            setSelectorBorderColor("#f80046");
+            setSelectorBorderColor("#DC3545");
             props.setIsSelectorValidate(true);
             return ;
         }
