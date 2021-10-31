@@ -1,0 +1,24 @@
+@import "../variables/mixins";
+
+.pop_up {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2em;
+  transition: 2s;
+  max-width: 630px;
+
+  .popup-close {
+    z-index: 2;
+    cursor: pointer;
+  }
+
+
+  @include respond(tablet) {
+    max-width: 285px;
+    font-size: .9em;
+  }
+
+  @include respond(mobile) {
+    max-width: 290px;
+    font-size: .9em;
+  }
+}

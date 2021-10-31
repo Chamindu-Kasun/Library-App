@@ -5,5 +5,14 @@ export interface IAuthor {
 export interface IBook {
     name: string;
     price: string;
-    author: IAuthor;
+    author: IAuthor | null;
+}
+
+export interface selectorOptionType {
+    label: string
+    value: IAuthor
+}
+export interface IPopupMessage {
+    message: string;
+    className: string;
 }
