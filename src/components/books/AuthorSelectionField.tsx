@@ -45,6 +45,15 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
         }),
     }
 
+    useEffect(() => {
+        if(props.isValid){
+            setSelectorBorderColor("#DC3545");
+        }
+        else {
+            setSelectorBorderColor("#198754");
+        }
+    }, [props.isValid])
+
     //Handle Option Selection
     const handleOnAuthorChange = (option: any) => {
         if(!option) {

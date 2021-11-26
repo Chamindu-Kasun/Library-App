@@ -4,10 +4,15 @@
 .welcome{
   h1{
     color: $font-color;
-    font-size: 2.7em;
-    font-weight: 500;
+    font-size: 3em;
+    font-weight: 700;
   }
   @include respond(mobile) {
+    h1 {
+      font-size: 2em;
+    }
+  }
+  @include respond(mobile-rotate) {
     h1 {
       font-size: 2em;
     }

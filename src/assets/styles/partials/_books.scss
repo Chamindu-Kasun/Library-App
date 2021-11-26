@@ -5,4 +5,7 @@
   @include respond(mobile) {
     margin-top: 20%;
   }
+  @include respond(mobile-rotate) {
+    margin-top: 20%;
+  }
 }

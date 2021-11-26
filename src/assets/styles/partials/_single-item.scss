@@ -18,6 +18,11 @@
   .icons {
     opacity: 1;
   }
+  @include respond(mobile) {
+    .icons {
+      opacity: 0;
+    }
+  }
 }
 
 @include respond(tablet) {

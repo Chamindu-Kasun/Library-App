@@ -1,7 +1,57 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border-bottom: solid 1px var(--primary-color);
+@import "../variables/mixins";
+
+.nav-bar{
+  background-color: #575757;
+
+  .navbar-image{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  @include respond(mobile) {
+    .navbar-image{
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .logo-text{
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 8px;
+    color: #544A5D;
+    cursor: pointer;
+  }
+
+  @include respond(mobile) {
+    .logo-text{
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #544A5D;
+      cursor: pointer;
+    }
+  }
+
+  .nav-bar-dropdown {
+    color: #181818;
+    border: 1px solid #181818;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    a.nav-link {
+      color: #ffffff;
+      margin-left: 20px;
+    }
+    @include respond(mobile) {
+      a.nav-link {
+        color: #ffffff;
+        margin-left: 70px;
+      }
+    }
+  }
 }

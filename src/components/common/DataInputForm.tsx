@@ -107,6 +107,8 @@ const DataInputForm: React.FC<DataInputFormProps> = (props) => {
         //Base on the label -> call two submit events
         if(label === "Author"){
             if(authorName === "" || authorName === null){
+                setIsFormValidate(true);
+                if(authorName ===null) setIsSelectorValidate(true);
                 return;
             }else{
                 //Create Author
