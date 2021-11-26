@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Form} from "react-bootstrap";
 import Select from "react-select";
-import {IAuthor, IBook, selectorOptionType} from "../common/Types";
+import {IAuthor, selectorOptionType} from "../common/Types";
 
 type AuthorSectionFieldProps = {
     onSelectBookAuthorChange : (option: any) => void;

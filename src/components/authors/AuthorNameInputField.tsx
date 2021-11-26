@@ -13,7 +13,7 @@ const AuthorNameInputField: React.FC<AuthorNameInputFieldProps> = (props) => {
     //Set Current Author Name
     useEffect(() => {
         if(currentAuthorValue){setAuthorName(currentAuthorValue)}
-    }, [props.currentAuthorValue])
+    }, [currentAuthorValue])
 
     //Handle Value Change
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {

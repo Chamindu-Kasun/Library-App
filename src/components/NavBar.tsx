@@ -1,5 +1,5 @@
 import React from "react";
-import {Navbar, Container, Nav, NavDropdown, Button} from "react-bootstrap";
+import {Navbar,  Nav } from "react-bootstrap";
 import logo from "../assets/images/logo.jpg"
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const NavBar = () => {
     return (
         <Navbar expand="lg" className="nav-bar">
             <Navbar.Brand>
-                <img src={logo} className="navbar-image ms-lg-5 me-lg-4 mx-md-3 mx-2" alt="profile picture"/>
+                <img src={logo} className="navbar-image ms-lg-5 me-lg-4 mx-md-3 mx-2" alt="profile"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
