@@ -1,5 +1,4 @@
 import React from 'react';
-import "./assets/styles/main.scss";
 import {Container,Row,Col} from "react-bootstrap";
 import Welcome from "./components/Welcome";
 import LibraryBody from "./components/LibraryBody";

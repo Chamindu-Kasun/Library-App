@@ -90,7 +90,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         if (indexToEdit === null) {
             newAuthorList.push(newAuthor);
             onAuthorsChange(newAuthorList);
-            setPopupMessage({message: "Author added Successfully", className: "alert-success"});
+            setPopupMessage({message: "Author Added Successfully", className: "alert-success"});
             setShowPopupMessage(true);
             setShowInputForm(false);
             return;

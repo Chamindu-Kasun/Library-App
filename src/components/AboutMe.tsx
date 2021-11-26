@@ -10,7 +10,7 @@ const AboutMe : React.FC = () => {
                 </div>
                 <div className="content">
                     <h3>Hi !! I'm Chamindu Kasun. </h3>
-                    <p>This is my individual library app created using react, typescript, scss, and bootstrap. This project is my second project in industrial training of softvesal(PLC)</p>
+                    <p>This is my individual library app created using react, typescript, scss, and bootstrap. This project is my second project in industrial training of softvessel(Pvt)</p>
                 </div>
             </div>
         </div>
