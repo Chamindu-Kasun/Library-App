@@ -18,15 +18,30 @@
   .icons {
     opacity: 1;
   }
-  @include respond(mobile) {
+}
+
+@include respond(mobile) {
+  .item {
+    background-color: transparent;
+
     .icons {
-      opacity: 0;
+      opacity: 1;
     }
   }
 }
 
 @include respond(tablet) {
-  .author {
+  .item {
+    background-color: transparent;
+
+    .icons {
+      opacity: 1;
+    }
+  }
+}
+
+@include respond(mobile-rotate) {
+  .item {
     background-color: transparent;
 
     .icons {

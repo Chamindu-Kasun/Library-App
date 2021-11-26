@@ -50,7 +50,7 @@ const AuthorSelectionField: React.FC<AuthorSectionFieldProps> = (props) => {
             setSelectorBorderColor("#DC3545");
         }
         else {
-            setSelectorBorderColor("#198754");
+            setSelectorBorderColor("#989898");
         }
     }, [props.isValid])
 

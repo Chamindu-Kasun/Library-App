@@ -27,8 +27,8 @@ const ShowSingleItem:React.FC<ShowSingleItemProps> = (props) => {
 
     return(
         <React.Fragment>
-            <Row xs={12} className={"item px-0 d-flex"}>
-                <Col xs={8} md={8} ><h5 className={"ps-0"}>{index+1}. {item.name}</h5></Col>
+            <Row xs={12} className={"item d-flex justify-content-center"}>
+                <Col xs={8} md={8} ><h5 className={"ps-0 pt-1"}>{index+1}. {item.name}</h5></Col>
                 <Col xs={4} md={4} className={"text-end pe-0"}>
                     <IconContext.Provider value={{size: "1em"}}>
                         <FiEdit
